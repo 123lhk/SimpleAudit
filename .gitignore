@@ -1,0 +1,13 @@
+# NuGet Packages
+*.nupkg
+# The packages folder can be ignored because of Package Restore
+**/packages/*
+# except build/, which is used as an MSBuild target.
+!**/packages/build/
+# Uncomment if necessary however generally it will be regenerated when needed
+#!**/packages/repositories.config
+/SimpleAudit.Core/bin
+/SimpleAudit.Web/bin
+/SimpleAudit.Core/obj
+/SimpleAudit.Web/obj
+/SimpleAudit.v12.suo
