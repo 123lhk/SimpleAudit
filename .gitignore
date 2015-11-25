@@ -11,3 +11,5 @@
 /SimpleAudit.Core/obj
 /SimpleAudit.Web/obj
 /SimpleAudit.v12.suo
+/SimpleAudit.Test/obj
+/SimpleAudit.Test/bin

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
@@ -13,6 +14,12 @@ namespace SimpleAudit.Core.Model
 {
 	public class AuditDbContext : DbContext
 	{
+		public AuditDbContext(DbConnection connection, bool contextOwnsConnection)
+			: base(connection, contextOwnsConnection)
+		{
+			
+		}
+
 		public AuditDbContext(string connectionString)
 			: base(connectionString)
 		{
@@ -24,7 +31,8 @@ namespace SimpleAudit.Core.Model
 
 			foreach (var entry in ChangeTracker.Entries<IAuditEntity>().Where(e => e.State == EntityState.Added))
 			{
-				entry.Entity.Id = GenerateGuid();
+				if (entry.Entity.Id == Guid.Empty)
+					entry.Entity.Id = GenerateGuid();
 			}
 
 			var changeInfos =
@@ -43,7 +51,7 @@ namespace SimpleAudit.Core.Model
 			return base.SaveChanges();
 		}
 
-		public DbSet<AuditLog> AuditLogs { get; set; }
+		public virtual DbSet<AuditLog> AuditLogs { get; set; }
 
 		private class ChangeInfo
 		{
